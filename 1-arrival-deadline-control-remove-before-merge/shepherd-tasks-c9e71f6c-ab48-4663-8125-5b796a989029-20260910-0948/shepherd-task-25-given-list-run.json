@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "shepherdTaskVersion": "1.0.2",
+  "campaignCreatedWithVersion": "1.0.2",
+  "stageOutcomeProtocolVersion": 1,
+  "campaignId": "c9e71f6c-ab48-4663-8125-5b796a989029",
+  "campaignMetadataDirectory": "1-arrival-deadline-control-remove-before-merge",
+  "repository": "edburns/dd-3061974-02-cargotracker",
+  "baseBranch": "experiment/shepherd-control",
+  "lessonPropagation": "off",
+  "taskIssues": [
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "startedAt": "2026-09-10T16:48:42Z",
+  "completedAt": "2026-09-10T19:46:00Z",
+  "exitCode": 0,
+  "status": "succeeded"
+}
