@@ -7,6 +7,8 @@ import org.eclipse.cargotracker.domain.model.cargo.TrackingId;
 import org.eclipse.cargotracker.domain.model.location.UnLocode;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,7 +46,20 @@ public class DefaultBookingServiceFacadeTest {
         assertEquals(1, bookingService.trackingIds.size());
         assertEquals(new TrackingId("ABC123"), bookingService.trackingIds.get(0));
         assertEquals(1, bookingService.deadlines.size());
-        assertEquals(newDeadline, bookingService.deadlines.get(0));
+        assertSame(newDeadline, bookingService.deadlines.get(0));
+    }
+
+    @Test
+    public void testChangeDeadlineRejectsNullDeadline() {
+        try {
+            facade.changeDeadline("ABC123", null);
+            fail("Expected null deadline to be rejected");
+        } catch (NullPointerException expected) {
+            assertEquals("Arrival deadline is required", expected.getMessage());
+        }
+
+        assertEquals(0, bookingService.trackingIds.size());
+        assertEquals(0, bookingService.deadlines.size());
     }
 
     private static class BookingServiceSpy implements BookingService {
