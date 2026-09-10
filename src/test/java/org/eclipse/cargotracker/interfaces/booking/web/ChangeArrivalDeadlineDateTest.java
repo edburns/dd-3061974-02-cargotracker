@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
@@ -49,6 +50,7 @@ public class ChangeArrivalDeadlineDateTest {
     @Test
     public void testLoadSurfacesMalformedDeadlineDate() {
         editor.setTrackingId("ABC123");
+        editor.setArrivalDeadlineDate(new Date());
         facade.cargo = new InvalidCargoRoute();
 
         try {
@@ -58,11 +60,14 @@ public class ChangeArrivalDeadlineDateTest {
             assertEquals("Unable to parse arrival deadline date for cargo ABC123",
                     expected.getMessage());
         }
+        assertNull(editor.getCargo());
+        assertNull(editor.getArrivalDeadlineDate());
     }
 
     @Test
     public void testLoadSurfacesMissingCargo() {
         editor.setTrackingId("ABC123");
+        editor.setArrivalDeadlineDate(new Date());
 
         try {
             editor.load();
@@ -71,6 +76,8 @@ public class ChangeArrivalDeadlineDateTest {
             assertEquals("Cargo with tracking ID ABC123 was not found",
                     expected.getMessage());
         }
+        assertNull(editor.getCargo());
+        assertNull(editor.getArrivalDeadlineDate());
     }
 
     @Test
@@ -102,7 +109,7 @@ public class ChangeArrivalDeadlineDateTest {
 
         assertEquals(1, facade.changeDeadlineCalls);
         assertEquals("ABC123", facade.changedTrackingId);
-        assertSame(selectedDate, facade.changedDeadline);
+        assertEquals(selectedDate, facade.changedDeadline);
     }
 
     private static class InvalidCargoRoute extends CargoRoute {
