@@ -61,6 +61,19 @@ public class ChangeArrivalDeadlineDateTest {
     }
 
     @Test
+    public void testLoadSurfacesMissingCargo() {
+        editor.setTrackingId("ABC123");
+
+        try {
+            editor.load();
+            fail("Expected missing cargo to be rejected");
+        } catch (IllegalArgumentException expected) {
+            assertEquals("Cargo with tracking ID ABC123 was not found",
+                    expected.getMessage());
+        }
+    }
+
+    @Test
     public void testChangeArrivalDeadlineRejectsNullDate() {
         try {
             editor.changeArrivalDeadline();
