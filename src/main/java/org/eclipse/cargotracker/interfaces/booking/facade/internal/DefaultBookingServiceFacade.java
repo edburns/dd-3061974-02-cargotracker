@@ -1,5 +1,6 @@
 package org.eclipse.cargotracker.interfaces.booking.facade.internal;
 
+import org.apache.commons.lang3.Validate;
 import org.eclipse.cargotracker.application.BookingService;
 import org.eclipse.cargotracker.domain.model.cargo.Cargo;
 import org.eclipse.cargotracker.domain.model.cargo.CargoRepository;
@@ -75,6 +76,13 @@ public class DefaultBookingServiceFacade implements BookingServiceFacade,
     public void changeDestination(String trackingId, String destinationUnLocode) {
         bookingService.changeDestination(new TrackingId(trackingId),
                 new UnLocode(destinationUnLocode));
+    }
+
+    @Override
+    public void changeDeadline(String trackingId, Date arrivalDeadline) {
+        Validate.notNull(arrivalDeadline, "Arrival deadline is required");
+        bookingService.changeDeadline(new TrackingId(trackingId),
+                arrivalDeadline);
     }
 
     @Override
